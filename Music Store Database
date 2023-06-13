@@ -1,0 +1,21 @@
+--Create a music store database
+
+CREATE TABLE music_store (id INTEGER PRIMARY KEY, artist TEXT, album_name TEXT, format TEXT, price INTEGER, quantity INTEGER);
+
+INSERT INTO music_store VALUES (1, "Turnstile", "Glow On", "LP", 24.99, 6);
+INSERT INTO music_store VALUES (2, "Turnstile", "Time & Space", "LP", 18.99, 10);
+INSERT INTO music_store VALUES (3, "Turnstile", "Step 2 Rhythm", "CD", 13.99, 9);
+INSERT INTO music_store VALUES (4, "Pearl Jam", "Ten", "LP", 29.99, 3);
+INSERT INTO music_store VALUES (5, "The Cure", "Disintegration", "LP", 34.99, 2);
+
+--display the database ordered by price. 
+SELECT * FROM music_store
+ORDER BY price desc;
+
+--What is an album that costs less than $25?
+SELECT album_name, format, price, SUM(quantity) FROM music_store WHERE price < 25;
+
+--What is the average price of a Turnstile album?
+SELECT AVG(price) "avg turnstile album price"
+FROM music_store
+where artist='Turnstile'; 
