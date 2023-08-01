@@ -1,5 +1,5 @@
-//Customer & Order Analytics Project From SQLite Studio Using Bit_DB file:
-https://www.dropbox.com/s/cvsasmtr8syq2c2/BIT_DB?dl=0
+/*Customer & Order Analytics Project From SQLite Studio Using Bit_DB file:
+https://www.dropbox.com/s/cvsasmtr8syq2c2/BIT_DB?dl=0*/
 
 SELECT COUNT(orderID) FROM BIT_DB.JanSales
 WHERE length(orderID) = 6
