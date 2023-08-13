@@ -1,4 +1,4 @@
-#I used a Spotify Data from Kaggle for this project.
+#I used Spotify Data from Kaggle for this project.
 
 #Creating the table:
 CREATE TABLE BIT_DB.Spotifydata (
@@ -44,4 +44,21 @@ FROM BIT_DB.spotifydata
 GROUP BY artist_name
 ORDER BY total_songs desc
 LIMIT 5
+
+#Next I used a CTE to find the average popularity for each artisit.
+WITH tempTable AS (
+    SELECT
+    artist_name, avg(popularity)
+    FROM BIT_DV.spotifydata
+    GROUP BY artist_name
+)    
+
+#Using the CTE, I found every artist with an average popularity of 90 or above, showed their name, their average popularity, and labeled them as a "Top Star".
+
+SELECT 
+artist_name 
+,avg(popularity)
+,'Top Star" AS tag
+FROM tempTable
+WHERE avg(popularity) >= 0.9
 
