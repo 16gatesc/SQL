@@ -1,0 +1,71 @@
+#I used the "chinook" media store dataset below for this project.
+# https://cdn.fs.teachablecdn.com/dRmwOLQsS22FVFbXfh3x
+
+#Then I double-clicked the unzipped file to open in SQLite.
+
+#Next, I explored the data using the following questions and SQL.
+
+#What are the total sales for Germany?
+
+SELECT SUM(Total)
+FROM chinook.Invoices
+WHERE BillingCountry = "Germany"
+
+
+#Show the customers from Germany.
+
+SELECT 
+    FirstName, 
+    LastName, 
+    Country
+FROM chinook.customers
+WHERE Country = "Germany"
+
+
+#Show all tracks with their album name, and genre.
+
+SELECT 
+    t.Name AS 'Track Name', 
+    a.Title AS 'Album Title',
+    g.Name AS 'Genre'  
+FROM chinook.tracks t
+JOIN chinook.Albums a 
+on a.AlbumId = t.AlbumId
+JOIN chinook.Genres g
+on g.GenreId = t.GenreId
+
+
+#How many tracks are in the jazz genre?
+
+SELECT distinct count(trackId)
+FROM chinook.tracks Tracks
+LEFT JOIN chinook.genres Genres
+ON tracks.GenreId=Genres.GenreId
+WHERE Genres.GenreId=2
+
+
+#Which Sales Support Agents made the least amount of money?
+SELECT 
+    Emp.FirstName, 
+    Emp.LastName,
+    SUM(Inv.Total) as 'Total Sales' 
+FROM chinook.Employees Emp
+
+JOIN chinook.Customers Cus 
+ON Cus.SupportRepId = Emp.EmployeeId
+
+JOIN chinook.Invoices Inv 
+ON Inv.CustomerId = Cus.CustomerId
+
+WHERE emp.Title = 'Sales Support Agent' 
+GROUP BY Emp.FirstName
+ORDER BY SUM(Inv.Total) ASC LIMIT 1;
+
+
+#Which employees were hired in 2002?
+SELECT 
+    FirstName, 
+    LastName,
+    HireDate
+FROM chinook.employees
+WHERE HireDate like '2002%'
